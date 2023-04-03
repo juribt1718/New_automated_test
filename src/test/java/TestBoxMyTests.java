@@ -19,7 +19,6 @@ public class TestBoxMyTests {
 
     @Test
     void fillFormTest() {
-        String userName = "Yuri";
         open("/automation-practice-form");
         $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
         executeJavaScript("$('#fixedban').remove()");
