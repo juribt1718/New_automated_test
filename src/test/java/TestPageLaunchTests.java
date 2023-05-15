@@ -9,30 +9,26 @@ import java.io.File;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
-public class TestPageLaunchTests {
-
-    @BeforeAll
-    static void beforeAll() {
-        Configuration.browserSize = "1920x1080";
-        Configuration.baseUrl = "https://demoqa.com";
-        System.setProperty("chromeoptions.args", "--remote-allow-origins=*");
-    }
-
+public class TestPageLaunchTests extends TestBase {
     @Test
     void fillFormTest() {
-       new RegistrationPage().openPage();
+        registrationPage.openPage()
+                .setFirstName("Yuri")
+                .setLastName("Bilov")
+                .setEmail("jurib@mail.com")
+                .setGender("Other")
+                .setNumber("5678456666")
+                .setBirthDate("04","September","1974")
+                .setSubject("Biology")
+                .setHobbies("Reading");
 //Обращение к локаторам
-        $("#firstName").setValue("Yuri");
-        $("#lastName").setValue("Bilov");
-        $("#userEmail").setValue("jurib@mail.com");
-        $("#genterWrapper").$(byText("Other")).click();
-        $("#userNumber").setValue("5678456666");
-        $("#dateOfBirthInput").click();
-        $(".react-datepicker__month-select").selectOption("September");
-        $(".react-datepicker__year-select").selectOption("1974");
-        $(".react-datepicker__day--004:not(.react-datepicker__day--outside-month)").click();
-        $("#subjectsInput").setValue("Biology").pressEnter();
-        $("#hobbiesWrapper").$(byText("Reading")).click();
+ sleep(60000);
+
+
+
+
+
+
         $("#uploadPicture").uploadFile(new File("src/test/resources/img/Nebo.jpg"));
         $("#currentAddress").setValue("SomeTown");
         $("#state").click();
