@@ -1,17 +1,9 @@
-import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Configuration;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import pages.RegistrationPage;
 
-import java.io.File;
-
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.*;
 public class TestPageLaunchTests extends TestBase {
     @Test
     void fillFormTest() {
+        //Обращение к локаторам
         registrationPage.openPage()
                 .setFirstName("Yuri")
                 .setLastName("Bilov")
@@ -20,28 +12,27 @@ public class TestPageLaunchTests extends TestBase {
                 .setNumber("5678456666")
                 .setBirthDate("04","September","1974")
                 .setSubject("Biology")
-                .setHobbies("Reading");
-//Обращение к локаторам
- sleep(60000);
+                .setHobbies("Reading")
+                .setPicture("Nebo.jpg")
+                .setAddress("SomeTown")
+                .setState("NCR")
+                .setCity("Delhi")
+                .submitInformation();
 
+        //Проверка введённых данных
+        registrationPage.verifyResults();
+        registrationPage.verifyMultipleResults("Student Name", "Yuri Bilov")
+                .verifyMultipleResults("Student Email", "jurib@mail.com")
+                .verifyMultipleResults("Gender", "Other")
+                .verifyMultipleResults("Mobile", "5678456666")
+                .verifyMultipleResults("Date of Birth","04 September,1974")
+                .verifyMultipleResults("Subjects","Biology")
+                .verifyMultipleResults("Hobbies","Reading")
+                .verifyMultipleResults("Picture","Nebo.jpg")
+                .verifyMultipleResults("Address","SomeTown")
+                .verifyMultipleResults("State and City","NCR Delhi");
 
-
-
-
-
-        $("#uploadPicture").uploadFile(new File("src/test/resources/img/Nebo.jpg"));
-        $("#currentAddress").setValue("SomeTown");
-        $("#state").click();
-        $("#stateCity-wrapper").$(byText("Haryana")).click();
-//
-        $("#submit").click();
-//Проверка введённых данных
-        $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
-        $(".table-responsive").shouldHave(text("Yuri Bilov"), text("jurib@mail.com"), text("Other")
-                , text("5678456666"), text("04 September,1974"), text("Biology"), text("Reading")
-                , text("Nebo.jpg"), text("SomeTown"));
-//Закрываем окно
-        $("#closeLargeModal").click();
+        registrationPage.closeWindow();
     }
 
 }
