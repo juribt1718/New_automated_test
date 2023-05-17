@@ -5,6 +5,7 @@ public class TestPageLaunchTests extends TestBase {
     void fillFormTest() {
         //Обращение к локаторам
         registrationPage.openPage()
+                .closeAdvertisingBanners()
                 .setFirstName("Yuri")
                 .setLastName("Bilov")
                 .setEmail("jurib@mail.com")

@@ -28,10 +28,14 @@ public class RegistrationPage {
 
         open("/automation-practice-form");
         $(".practice-form-wrapper").shouldHave(text(titleText));
+           return this;
+    }
+    public RegistrationPage closeAdvertisingBanners() {
         executeJavaScript("$('#fixedban').remove()");
         executeJavaScript("$('footer').remove()");
         return this;
     }
+
     public RegistrationPage setFirstName(String value) {
         firstNameInput.setValue(value);
         return this;
