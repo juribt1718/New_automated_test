@@ -1,12 +1,19 @@
 import org.junit.jupiter.api.Test;
-import tests.TestData.*;
 
-import static tests.TestData.*;
+import static java.lang.Thread.sleep;
+import static utils.RandomUtils.*;
 
 
-public class TestPageWithDataTests extends TestBase {
+
+
+public class TestPageWithRandomUtilsTests extends TestBase {
     @Test
-    void fillFormTest() {
+    void fillFormTest() throws InterruptedException {
+        //Инициализация переменных
+        String userName = getRandomString(10),
+                lastName = getRandomString(10),
+                userEmail = getRandomString(10) + "@mail.ru";
+
         //Обращение к локаторам
         registrationPage.openPage()
                 .closeAdvertisingBanners()
@@ -15,14 +22,15 @@ public class TestPageWithDataTests extends TestBase {
                 .setEmail(userEmail)
                 .setGender("Other")
                 .setNumber("5678456666")
-                .setBirthDate("04","September","1974")
+                .setBirthDate("04", "September", "1974")
                 .setSubject("Biology")
                 .setHobbies("Reading")
                 .setPicture("Nebo.jpg")
                 .setAddress("SomeTown")
                 .setState("NCR")
-                .setCity("Delhi")
-                .submitInformation();
+                .setCity("Delhi");
+        sleep(10000);
+        registrationPage.submitInformation();
 
         //Проверка введённых данных
         registrationPage.verifyResults();
